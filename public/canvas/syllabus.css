@@ -1,0 +1,23 @@
+#goals {
+  color: yellow;
+  background-color: blue;
+}
+
+#encouraged {
+  border: 27px blue solid;
+  border-bottom-color: green;
+  border-bottom-style: dashed;
+  border-bottom-width: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+
+#focus {
+  border-width: 20px;
+  border-color: purple;
+  border-style: solid;
+  font-family: cursive;
+  color: yellow;
+}

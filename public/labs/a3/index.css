@@ -1,0 +1,66 @@
+.bg-color-yellow {
+  background-color: #ffff07;
+}
+.bg-color-blue {
+  background-color: #7070ff;
+}
+.bg-color-red {
+  background-color: #ff7070;
+}
+.bg-color-green {
+  background-color: green;
+}
+
+.dimension-portrait {
+  width: 75px;
+  height: 100px;
+}
+
+.dimension-landscape {
+  width: 100px;
+  height: 75px;
+}
+
+.dimension-square {
+  width: 75px;
+  height: 75px;
+}
+
+.pos-relative-nudge-up-right {
+  position: relative;
+  bottom: 30px;
+  left: 30px;
+}
+.pos-relative-nudge-down-right {
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+.pos-relative {
+  position: relative;
+}
+
+
+
+
+.pos-absolute-10-10 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.pos-absolute-50-50 {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+.pos-absolute-120-20 {
+  position: absolute;
+  top: 20px;
+  left: 120px;
+}
+
+.pos-fixed {
+  position: fixed;
+  right: 0px;
+  bottom: 50%;
+}
