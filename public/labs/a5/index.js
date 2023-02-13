@@ -35,6 +35,25 @@ const students = [
     grades: [87, 76, 56, 67 , 78]
   }
 ]
+
+const jlist = $("#jlist")
+const sname = $("#sname")
+for (let j=0; j<students.length; j++) {
+  const jli = $(`<li>${students[j].name}</li>`)
+  jlist.append(jli)
+}
+
+function addStudentFn() {
+  jlist.append(`<li>${sname.val()}</li>`)
+}
+
+const addStudentBtn = $("#addStudent")
+addStudentBtn.click(addStudentFn)
+
+
+// jlist.append("<li>Bob</li>")
+// jlist.append("<li>Charlie</li>")
+
 const list = document.getElementById('list')
 let listItems = ''
 // for (let i = 0; i < students.length; i++) {
@@ -58,8 +77,8 @@ hello123.style.color = "red"
 // console.log(jQuery)
 const hello234 = jQuery("#calc")
 hello234.css({
-  'color' : 'green',
-  backgroundColor: 'yellow'
+  color : 'green',
+  backgroundColor: 'yellow',
 })
 
 hello123.innerHTML = "Life's Good <button>Yay</button>"
