@@ -5,6 +5,7 @@ import Destructors from "./Destructors";
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import Home from "./Home";
+import Tarp from "./tarp";
 
 function App() {
   const bgColor = 'bg-warning'
@@ -20,6 +21,7 @@ function App() {
           <Route path="/destructor" element={<Destructors/>}/>
           <Route path="/loops" element={<Loops/>}/>
           <Route path="/simple" element={<SimpleComponent/>}/>
+          <Route path="/tarp" element={<Tarp/>}/>
         </Routes>
       </BrowserRouter>
     </div>
