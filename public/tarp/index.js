@@ -1,3 +1,7 @@
+import TarpNavigator from "./TarpNavigator.js";
+import CourseNavigator from "./CourseNavigator.js";
+import Modules from "./Modules.js";
+
 const tarp = $("#tarp")
 tarp.append(
   `

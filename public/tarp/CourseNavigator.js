@@ -16,3 +16,4 @@ function CourseNavigator() {
   </div>
   `)
 }
+export default CourseNavigator

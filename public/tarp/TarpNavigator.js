@@ -20,3 +20,4 @@ function TarpNavigator(active = 'Dashboard') {
     `
   )
 }
+export default TarpNavigator
