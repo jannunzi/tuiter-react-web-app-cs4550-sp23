@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTuit, addTuit, updateTuit } from "../redux/tuits-reducer";
+import {
+  createTuitThunk,
+  deleteTuitThunk,
+  findTuitsThunk,
+  updateTuitThunk,
+} from "../services/tuits-thunks";
 function TuitList() {
   const { tuits, error, loading } = useSelector((state) => state.tuits);
   const [newTuit, setNewTuit] = useState({
     text: "New Tuit",
   });
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(findTuitsThunk());
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <div className="container">
       <h1>Tuit List</h1>
@@ -14,21 +29,22 @@ function TuitList() {
         onChange={(e) => {
           setNewTuit({
             ...newTuit,
-            text: e.target.value,
+            title: "New Tuit",
+            tuit: e.target.value,
           });
         }}
-        value={newTuit.text}
+        value={newTuit.tuit}
       ></textarea>
       <button
         onClick={() => {
-          dispatch(addTuit(newTuit));
+          dispatch(createTuitThunk(newTuit));
         }}
       >
         Tuit
       </button>
-      <ul>
+      <ul className="list-group">
         {tuits.map((tuit) => (
-          <li key={tuit.id}>
+          <li key={tuit.id} className="list-group-item">
             {tuit.editing ? (
               <input
                 onChange={(e) => {
@@ -40,10 +56,18 @@ function TuitList() {
                   );
                 }}
                 type="text"
-                value={tuit.text}
+                value={tuit.tuit}
               />
             ) : (
-              <label>{tuit.text}</label>
+              <>
+                <b>{tuit.title}</b>
+                <br />
+                <label>{tuit.tuit}</label>
+                <br />
+                <label>Likes: {tuit.likes}</label>
+                <button>Like</button>
+                <br />
+              </>
             )}
             <button
               onClick={() => {
@@ -57,7 +81,7 @@ function TuitList() {
             >
               {tuit.editing ? "Save" : "Edit"}
             </button>
-            <button onClick={() => dispatch(deleteTuit(tuit.id))}>
+            <button onClick={() => dispatch(deleteTuitThunk(tuit._id))}>
               Delete
             </button>
           </li>
