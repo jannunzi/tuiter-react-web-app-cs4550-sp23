@@ -10,7 +10,16 @@ function TuitList() {
   return (
     <div className="container">
       <h1>Tuit List</h1>
+      <button
+        className="btn btn-primary float-end"
+        onClick={() => {
+          dispatch(addTuit(newTuit));
+        }}
+      >
+        Tuit
+      </button>
       <textarea
+        className="form-control w-75"
         onChange={(e) => {
           setNewTuit({
             ...newTuit,
@@ -19,18 +28,31 @@ function TuitList() {
         }}
         value={newTuit.text}
       ></textarea>
-      <button
-        onClick={() => {
-          dispatch(addTuit(newTuit));
-        }}
-      >
-        Tuit
-      </button>
-      <ul>
+      <ul className="list-group mt-2">
         {tuits.map((tuit) => (
-          <li key={tuit.id}>
+          <li key={tuit.id} className="list-group-item">
+            <button
+              className="btn btn-danger float-end ms-2"
+              onClick={() => dispatch(deleteTuit(tuit.id))}
+            >
+              Delete
+            </button>
+            <button
+              className="btn btn-warning float-end"
+              onClick={() => {
+                dispatch(
+                  updateTuit({
+                    ...tuit,
+                    editing: !tuit.editing,
+                  })
+                );
+              }}
+            >
+              {tuit.editing ? "Save" : "Edit"}
+            </button>
             {tuit.editing ? (
-              <input
+              <textarea
+                className="form-control w-75"
                 onChange={(e) => {
                   dispatch(
                     updateTuit({
@@ -45,21 +67,6 @@ function TuitList() {
             ) : (
               <label>{tuit.text}</label>
             )}
-            <button
-              onClick={() => {
-                dispatch(
-                  updateTuit({
-                    ...tuit,
-                    editing: !tuit.editing,
-                  })
-                );
-              }}
-            >
-              {tuit.editing ? "Save" : "Edit"}
-            </button>
-            <button onClick={() => dispatch(deleteTuit(tuit.id))}>
-              Delete
-            </button>
           </li>
         ))}
       </ul>
