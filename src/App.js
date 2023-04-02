@@ -8,6 +8,11 @@ import Home from "./Home";
 import Tarp from "./tarp";
 import TodoList from "./todos/TodoList";
 import TuitList from "./tuiter/tuit-list";
+import AdminScreen from "./admin";
+import AdminUserScreen from "./admin-user";
+import RegisterScreen from "./register";
+import LoginScreen from "./login";
+import Profile from "./profile";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -17,12 +22,17 @@ function App() {
     <div className="container-fluid">
       <Provider store={store}>
         <BrowserRouter>
-          <Link to="/">Home</Link> |<Link to="/add">Add</Link> |
-          <Link to="/simple">Simple Component</Link> |
-          <Link to="/destructor">Destructor</Link> |
-          <Link to="loops">Loops</Link> |<Link to="tarp">Tarp</Link> |
-          <Link to="todos">Todos</Link> |<Link to="tuitlist">Tuits</Link>
+          <Link to="/">Home</Link> | <Link to="/add">Add</Link> |{" "}
+          <Link to="tarp">Tarp</Link> | <Link to="todos">Todos</Link> |{" "}
+          <Link to="tuitlist">Tuits</Link> | <Link to="admin">Admin</Link> |
+          <Link to="register">Register</Link> |<Link to="profile">Profile</Link>{" "}
+          | <Link to="login">Login</Link>
           <Routes>
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/admin/:id" element={<AdminUserScreen />} />
+            <Route path="/admin" element={<AdminScreen />} />
             <Route path="/tuitlist" element={<TuitList />} />
             <Route path="/" element={<Home />} />
             <Route path="/add/:parama/:paramb" element={<Add />} />

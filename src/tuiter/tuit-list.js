@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTuit, addTuit, updateTuit } from "../redux/tuits-reducer";
+import { findAllTuits } from "../services/tuits-service";
+import {
+  findAllTuitsThunk,
+  addTuitThunk,
+  deleteTuitThunk,
+  updateTuitThunk,
+} from "../services/tuits-thunks";
 function TuitList() {
   const { tuits, error, loading } = useSelector((state) => state.tuits);
+
+  useEffect(() => dispatch(findAllTuitsThunk()), []);
+
   const [newTuit, setNewTuit] = useState({
     text: "New Tuit",
   });
@@ -13,7 +23,7 @@ function TuitList() {
       <button
         className="btn btn-primary float-end"
         onClick={() => {
-          dispatch(addTuit(newTuit));
+          dispatch(addTuitThunk(newTuit));
         }}
       >
         Tuit
@@ -30,32 +40,13 @@ function TuitList() {
       ></textarea>
       <ul className="list-group mt-2">
         {tuits.map((tuit) => (
-          <li key={tuit.id} className="list-group-item">
-            <button
-              className="btn btn-danger float-end ms-2"
-              onClick={() => dispatch(deleteTuit(tuit.id))}
-            >
-              Delete
-            </button>
-            <button
-              className="btn btn-warning float-end"
-              onClick={() => {
-                dispatch(
-                  updateTuit({
-                    ...tuit,
-                    editing: !tuit.editing,
-                  })
-                );
-              }}
-            >
-              {tuit.editing ? "Save" : "Edit"}
-            </button>
+          <li key={tuit._id} className="list-group-item">
             {tuit.editing ? (
               <textarea
-                className="form-control w-75"
+                className="form-control w-100 mb-2"
                 onChange={(e) => {
                   dispatch(
-                    updateTuit({
+                    updateTuitThunk({
                       ...tuit,
                       text: e.target.value,
                     })
@@ -67,6 +58,25 @@ function TuitList() {
             ) : (
               <label>{tuit.text}</label>
             )}
+            <button
+              className="btn btn-danger float-end ms-2"
+              onClick={() => dispatch(deleteTuitThunk(tuit._id))}
+            >
+              Delete
+            </button>
+            <button
+              className="btn btn-warning float-end"
+              onClick={() => {
+                dispatch(
+                  updateTuitThunk({
+                    ...tuit,
+                    editing: !tuit.editing,
+                  })
+                );
+              }}
+            >
+              {tuit.editing ? "Save" : "Edit"}
+            </button>
           </li>
         ))}
       </ul>
