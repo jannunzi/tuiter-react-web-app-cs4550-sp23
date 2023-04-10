@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAlbum, getTracks, likeAlbum } from "./napster-service";
 
 function NapsterAlbumDetails() {
+  const { currentUser } = useSelector((state) => state.users);
   const { id } = useParams();
   const [album, setAlbum] = useState({});
   const [tracks, setTracks] = useState([]);
@@ -19,18 +21,28 @@ function NapsterAlbumDetails() {
   return (
     <div>
       <h1>{album.name}</h1>
-      <button
-        onClick={() => {
-          likeAlbum({ name: album.name, albumId: album.id });
-        }}
-        className="btn btn-warning"
-      >
-        Like
-      </button>
+      {/* <h2>{currentUser.username}</h2> */}
+      {currentUser && (
+        <button
+          onClick={() => {
+            likeAlbum({ name: album.name, albumId: album.id });
+          }}
+          className="btn btn-warning"
+        >
+          Like
+        </button>
+      )}
       <br />
       <img
         src={`https://api.napster.com/imageserver/v2/albums/${id}/images/300x300.jpg`}
       />
+      {currentUser && (
+        <>
+          <h2>Review this album</h2>
+          <textarea className="form-control"></textarea>
+          <button className="btn btn-primary">Submit</button>
+        </>
+      )}
       <h2>Tracks</h2>
       <ul className="list-group">
         {tracks.map((track) => (

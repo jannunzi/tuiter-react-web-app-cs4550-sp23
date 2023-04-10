@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import * as userService from "./services/users-service";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "./services/users-thunks";
 function LoginScreen() {
   const [user, setUser] = useState({
     username: "alice",
@@ -9,8 +11,10 @@ function LoginScreen() {
     lastName: "Wonderland",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const login = async () => {
-    await userService.login(user);
+    // await userService.login(user);
+    await dispatch(loginThunk(user));
     navigate("/profile");
   };
   return (

@@ -49,3 +49,8 @@ export const profile = async () => {
   const response = await api.get(`${USERS_REST_API_URL}/profile`);
   return response.data;
 };
+
+export const findUserByUsername = async (username) => {
+  const response = await api.get(`${USERS_REST_API_URL}/username/${username}`);
+  return response.data;
+};
